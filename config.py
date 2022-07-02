@@ -1,1 +1,1 @@
-JSON_AS_ASCII=True
+JSON_AS_ASCII=False
