@@ -1,4 +1,4 @@
-def log():
+def log(func):
     def wrapper(name):
         print('before calling'),func.__name__
         func(name)
@@ -7,5 +7,5 @@ def log():
 @log
 def morning(name):
     print('hello',name)
-if(__name__==__main__):
+if(__name__=='__main__'):
     morning('NNN')
