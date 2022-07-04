@@ -27,7 +27,7 @@ def index():
 @app.route('/login/')
 def login():
   flash('登陆成功')
-  return redirect(url_for('index'))
+  return render_template('login.html')
 @app.route('/logout/')
 def logout():
   return render_template('logout.html')
