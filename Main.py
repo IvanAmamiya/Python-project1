@@ -23,5 +23,10 @@ def login():
 @app.route('/logout/')
 def logout():
   return render_template('logout.html')
+@app.errorhandler(404)
+def NOT_FOUND(error):
+  
+    return render_template('404_NOT_FOUND.html')
+  
 if(__name__=='__main__'):
   app.run(debug = True)
