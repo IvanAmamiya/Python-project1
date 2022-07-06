@@ -9,8 +9,9 @@ name = 'Rokossovskya'
 @app.route('/')
 @app.route('/index/')
 def index():
-  app.logger.info('a')
+  app.logger.info('index')
   return render_template('index.html',useradmin = name)
+ 
 
 @app.errorhandler(404)
 def NOT_FOUND(error):
@@ -20,7 +21,8 @@ def NOT_FOUND(error):
   
 if(__name__=='__main__'):
   handler = TimedRotatingFileHandler('Infos.log',interval=1,when='d',backupCount = 15,encoding = 'UTF-8',delay = False,utc = True)
-  formatter = logging.Formatter("%(asctime)s - %(message)s")
+  formatter = logging.Formatter("%(levelname)s: %(asctime)s -%(lineno)d- %(filename)s %(message)s")
   handler.setFormatter(formatter)
+  logging.basicConfig(level = logging.DEBUG)
   app.logger.addHandler(handler)
   app.run(debug = True)
