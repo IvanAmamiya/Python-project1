@@ -1,40 +1,26 @@
 from flask import Flask,request,jsonify,url_for,redirect,render_template,flash,get_flashed_messages
-games = [
-{"id":1,"name":"HOI4"},
-{"id":2,"name":"CSGO"},
-{"id":3,"name":"Dota"},
-{"id":4,"name":"EU4"}]
+import logging
+from logging.handlers import TimedRotatingFileHandler
 import config
 app = Flask(__name__)
 app.config.from_object(config)
 app.secret_key = 'TEST'
-@app.route('/index/1' ,methods = ['GET'])
-def mushroom():
-  uid = request.args.get("uid") 
-  for game in games:
-    if(uid==str(game["id"])):
-      return game["name"]
-  return "NOT FOUND"
+name = 'Rokossovskya'
 @app.route('/')
 @app.route('/index/')
 def index():
-  res = ''
-  for msg in get_flashed_messages():
-    res += msg + '<br>'
-  res+='hello'
-  return res
+  app.logger.info('a')
+  return render_template('index.html',useradmin = name)
 
-@app.route('/login/')
-def login():
-  flash('登陆成功')
-  return render_template('login.html')
-@app.route('/logout/')
-def logout():
-  return render_template('logout.html')
 @app.errorhandler(404)
 def NOT_FOUND(error):
-  
-    return render_template('404_NOT_FOUND.html')
+  app.logger.error('404')
+  return render_template('404_NOT_FOUND.html',useradmin = name)
+
   
 if(__name__=='__main__'):
+  handler = TimedRotatingFileHandler('Infos.log',interval=1,when='d',backupCount = 15,encoding = 'UTF-8',delay = False,utc = True)
+  formatter = logging.Formatter("%(asctime)s - %(message)s")
+  handler.setFormatter(formatter)
+  app.logger.addHandler(handler)
   app.run(debug = True)
