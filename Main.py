@@ -1,6 +1,6 @@
 from flask import Flask,request,jsonify,url_for,redirect,render_template,flash,get_flashed_messages
 import logging
-from flask import send_from_directory
+from flask import current_app
 from logging.handlers import TimedRotatingFileHandler
 import config
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def index():
   return render_template('index.html',useradmin = name)
 @app.route('/favicon.ico') 
 def favicon():
-  return 'favicon'
+  return current_app.send_static_file('/img/favicon.ico')
 
   
 if(__name__=='__main__'):
