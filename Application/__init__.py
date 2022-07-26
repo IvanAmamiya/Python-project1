@@ -5,9 +5,12 @@ from flask import current_app
 from logging.handlers import TimedRotatingFileHandler
 import config
 from logging import handlers
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config.from_pyfile('app.conf')
-from Application import views,models,debug,loggings
+db = SQLAlchemy(app)
 
+
+from Application import views,models,debug,loggings
 
