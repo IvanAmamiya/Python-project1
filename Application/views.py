@@ -1,9 +1,9 @@
 from  Application import app,session,request,redirect,flash
 from Application import current_app,render_template,url_for
 from Application import db,g
-from .forms import LoginForm
+from .forms import LoginForm,QBOX_Form
 from werkzeug.security import check_password_hash
-from .models import User
+from .models import User,QuestionBox
 name = 'Rokossovskaya'
 
 @app.before_request
@@ -34,10 +34,26 @@ def favicon():
 def Article():
   app.logger.info('Article')
   return render_template('Article.html',useradmin = name)
-@app.route('/Shitsumonnhako/')
+
+@app.route('/Shitsumonnhako/',methods = ["GET","POST"])
 def Shitsumonnhako():
   app.logger.info('Shitsumonnhako')
-  return render_template('Shitsumonnhako.html',useradmin = name)
+  if(request.method == "GET"):
+    return render_template('Shitsumonnhako.html',useradmin = name)
+  else:
+    form = QBOX_Form(request.form)
+    if form.validate():
+      title = form.title.data
+      Author = form.Author.data
+      content = form.content.data
+      question = QuestionBox(title = title,Author = Author,content = content)
+      db.session.add(question)
+      db.session.commit()
+      return redirect(url_for("index"))
+    else:
+        flash("格式错误！")
+        return redirect(url_for("Shitsumonnhako"))
+
 @app.route('/ShortBlog/')
 def ShortBlog():
   app.logger.info('ShortBlog')
@@ -70,6 +86,7 @@ def login():
 def logout():
   session.clear()
   return redirect(url_for("login"))
+
 
 
 
