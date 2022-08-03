@@ -1,26 +1,7 @@
-from  Application import app,session,request,redirect,flash
-from Application import current_app,render_template,url_for
-from Application import db,g
-from .forms import LoginForm
-from werkzeug.security import check_password_hash
-from .models import User
+from  Application import app
+from Application import current_app,render_template
+from Application import db
 name = 'Rokossovskaya'
-
-@app.before_request
-def before_request():
-    user_id = session.get("user_id")
-    if (user_id):
-        try:
-            user = User.query.get(user_id)
-            setattr(g,"user",user)
-        except:
-            pass
-@app.context_processor
-def context_processor():
-    if(hasattr(g,"user")):
-        return {"user":g.user}
-    else:
-        return {}
 
 @app.route('/')
 @app.route('/index/')
@@ -46,30 +27,9 @@ def ShortBlog():
 def register():
   app.logger.info('register')
   return render_template('register.html',useradmin = name)
-@app.route('/login/',methods = ["GET","POST"])
+@app.route('/login/')
 def login():
   app.logger.info('login')
-  if(request.method == "GET"):
-    return render_template('login.html',useradmin = name)
-  else:
-    form = LoginForm(request.form)
-    if form.validate():
-      username = form.username.data
-      password = form.password.data
-      user = User.query.filter_by(username = username).first()
-      if (user and check_password_hash(user.password, password)):
-        session['user_id'] = user.id
-        return redirect(url_for("index"))
-      else:
-        flash("用户名或密码错误")
-        return redirect(url_for("login"))
-    else:
-      flash("用户名或密码错误")
-      return redirect(url_for("login"))
-@app.route('/logout')
-def logout():
-  session.clear()
-  return redirect(url_for("login"))
-
+  return render_template('login.html',useradmin = name)
 
 
