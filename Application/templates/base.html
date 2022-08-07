@@ -1,37 +1,29 @@
 <HTML>
-  <link rel = 'stylesheet' href = "{{url_for('static',filename = 'bootstrap/bootstrap.4.6.1.min.css')}}">
+<link rel='stylesheet' href="{{url_for('static',filename = 'bootstrap/bootstrap.4.6.1.min.css')}}">
+
 <head>
   <title> {{useradmin}}的个人Blog</title>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{{url_for("index")}}">{{useradmin}}的个人Blog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for("Shitsumonnhako")}}">提问箱</a>
+          <a class="nav-link" href="{{url_for("Shitsumonnhako_index")}}">提问箱</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for("Article")}}">文章</a>
+          <a class="nav-link" href="{{url_for("Article_index")}}">文章</a>
         </li>
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-            排序顺序
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
+
+
         <li class="nav-item">
-          <form class="form-inline my-2 my-lg-0" >
-            <input class="form-control mr-sm-2" type="search" placeholder="本站文章" aria-label="Search">
+          <form class="form-inline my-2 my-lg-0" method = "GET" action = "{{url_for("search")}}" >
+            <input class="form-control mr-sm-2" type="search" placeholder="本站文章" aria-label="Search" name = "Q">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
           </form>
         </li>
@@ -39,7 +31,7 @@
       </ul>
 
       <ul class="navbar-nav ">
-        {%if user%} 
+        {%if user%}
         <li class="nav-item">
           <a class="nav-link" }}">{{user.username}}</a>
         </li>
@@ -47,15 +39,15 @@
           <a class="nav-link" href="{{url_for("logout")}}">登出</a>
         </li>
         {% else %}
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="{{url_for( "login" ) }}">登录</a>
         </li>
         {% endif %}
 
 
-         
-    </ul>
- 
+
+      </ul>
+
     </div>
   </nav>
 
@@ -64,8 +56,9 @@
 
 
 <body>
-<div class = "container"> {%block main%}
-{%endblock%}
-</div>
+  <div class="container"> {%block main%}
+    {%endblock%}
+  </div>
 </body>
+
 </HTML>

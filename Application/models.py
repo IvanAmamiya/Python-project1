@@ -21,20 +21,34 @@ class User(db.Model):
         username = db.Column(db.String(200),nullable = False,unique = True)
         password = db.Column(db.String(200),nullable = False,unique = False)
 
-db.create_all()
-
-#User1 = User(username = "System_Admin",password = generate_password_hash("PoWm1147h"))
-#db.session.commit()
-class QuestionBox(db.Model):  
+class BlogModel(db.Model):  
     
-        __tablename__ = "questions"
+        __tablename__ = "Blogs"
         id = db.Column(db.Integer,primary_key = True,autoincrement = True)
+        type = db.Column(db.String(400),nullable = False)
         title = db.Column(db.String(200),nullable = False)
         Author = db.Column(db.String(200),nullable = False)
         content = db.Column(db.String(200),nullable = False)
         Creat_Date = db.Column(db.String(200),default = datetime.now(),nullable = False)
+#User1 = User(username = "System_Admin",password = generate_password_hash("PoWm1147h"))
+#db.session.add(User1)
+#db.session.commit()
+class ReviewModel(db.Model):
+        __tablename__ = "review"
+        id = db.Column(db.Integer,primary_key = True,autoincrement = True)
+        Author = db.Column(db.String(200),nullable = False)
+        content = db.Column(db.String(200),nullable = False)
+        Creat_Date = db.Column(db.String(200),default = datetime.now(),nullable = False)
+        type = db.Column(db.String(200),nullable = False)
+     
+        Blog_id = db.Column(db.Integer,db.ForeignKey("Blogs.id"))
+
+        Blog = db.relationship("BlogModel",backref = db.backref("reviews"))
+
+
 
 db.create_all()
+
 
 
 

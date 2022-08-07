@@ -1,4 +1,46 @@
 {%extends'base.html'%}
 {%block main%}
-<h1>欢迎来到{{useradmin}}的个人Blog</h1>
+<h1 style = "margin-top: 20px;text-align:center">欢迎来到{{useradmin}}的个人Blog</h1>
+<link rel = 'stylesheet' href = "{{url_for('static',filename = 'css/index.css')}}" >
+<div class="row" style = "margin-top: 40px;">
+    <div class="col-8" >
+        {% for question in questions %}
+        <hr>
+        <ul class="question-ul" >
+            <li>
+                
+
+
+
+
+                <div class="question-main">
+                    <p class="question-title" >
+                        {% if question.type == "Article" %}
+                        <img src="{{url_for('static',filename = 'img/Blog.jpeg')}}" alt="" class="src"width="20px" >
+                        {%else%}
+                        <img src="{{url_for('static',filename = 'img/question.jpeg')}}" alt="" class="src"width="20px">
+                       
+                        {%endif%}
+                        <a href="{{url_for("Blog_detail" , Blog_id = question.id)}}" class="href"style = "font-size:20px">{{question.title}}</a>
+                    </p>
+
+                </div>
+
+
+                <div class="question-detail">
+                    <p class="question-detail" style = "font-size:10px;text-align:right" >
+                        <span class="question-author">{{question.Author}}</span>
+                        <span class="question-time">{{question.Creat_Date}}</span>
+                    </p>
+
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+        <hr>
+    </div>
+    <div class="col"></div>
+
+</div>
+
 {%endblock%}

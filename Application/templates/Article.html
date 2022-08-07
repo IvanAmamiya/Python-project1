@@ -1,4 +1,31 @@
 {%extends'base.html'%}
 {%block main%}
-Test
+<<div class="row" style = "margin-top: 20px;">
+    <div class="col"></div>
+    <div class="col-8" style = "text-align: center;">
+        <h1>文章</h1>
+        <form action="{{url_for("Article" )}}" method="POST" >
+            <div class="form-group">
+                <input type="text" name="title"  class = "form-control" placeholder="标题" style = "margin-top: 20px;text-align: center;">
+            </div>
+
+            <div class="form-group">
+                <textarea name="content"  cols="30" rows = "10"  class="form-control" placeholder="内容"style = "margin-top: 20px;text-align: center;"></textarea>
+            </div>
+            <div class="form-group" style = "margin-top: 20px;">
+                <button class="btn btn-primary btn-block">
+                    发布
+                </button>
+            </div>
+            {%for message in get_flashed_messages()%}
+            <div class="text-danger">
+              {{message}}
+            </div>
+            {%endfor%}
+            
+        </form>
+    </div>
+    <div class="col"></div>
+
+</div>
 {%endblock%}

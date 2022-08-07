@@ -15,5 +15,5 @@ db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 
 
-from Application import views,models,debug,loggings
+from Application import views,models,debug,loggings,decorators
 

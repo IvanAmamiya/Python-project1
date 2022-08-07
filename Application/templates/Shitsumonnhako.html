@@ -6,19 +6,25 @@
         <h1>提问箱捏</h1>
         <form action="{{url_for("Shitsumonnhako" )}}" method="POST" >
             <div class="form-group">
-                <input type="text" name="title"  class = "form-control" placeholder="提问标题">
+                <input type="text" name="title"  class = "form-control" placeholder="提问标题" style = "margin-top: 20px;text-align: center;">
             </div>
             <div class="form-group">
-                <input type="text" name="Author"  class = "form-control" placeholder="作者名">
+                <input type="text" name="Author"  class = "form-control" placeholder="署名" style = "margin-top: 20px;text-align: center;">
             </div>
             <div class="form-group">
-                <textarea name="content"  cols="30" rows = "10"  class="form-control" placeholder="提问内容"></textarea>
+                <textarea name="content"  cols="30" rows = "10"  class="form-control" placeholder="提问内容"style = "margin-top: 20px;text-align: center;"></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group" style = "margin-top: 20px;">
                 <button class="btn btn-primary btn-block">
                     发布
                 </button>
             </div>
+            {%for message in get_flashed_messages()%}
+            <div class="text-danger">
+              {{message}}
+            </div>
+            {%endfor%}
+            
         </form>
     </div>
     <div class="col"></div>

@@ -1,0 +1,40 @@
+{%extends'base.html'%}
+{%block main%}
+<title>{{username}}的提问箱</title>
+
+<link rel = 'stylesheet' href = "{{url_for('static',filename = 'css/index.css')}}" >
+<a href="{{url_for("Shitsumonnhako")}}" >
+    <div class="form-group" style = "margin-top: 20px;text-align:left"  >
+        <button class="btn btn-primary " style = "text-align:center;font-size:40px" >
+        开始提问
+    </button>
+</div>
+</a>
+<div class="row" >
+    <div class="col-8" >
+        {% for Question in Questions %}
+        <hr>
+        <ul class="question-ul" >
+            <li>
+                <div class="side-question">
+                </div>
+                <div class="question-main">
+                    <p class="question-title" >
+                        <a href="{{url_for("Blog_detail" , Blog_id = Question.id)}}" class="href"style = "font-size:20px">{{Question.title}}</a>
+                    </p>
+                    <p class="question-detail" style = "font-size:10px;text-align:right" >
+                        <span class="question-author">{{Question.Author}}</span>
+                        <span class="question-time">{{Question.Creat_Date}}</span>
+                    </p>
+
+                </div>
+            </li>
+        </ul>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="col"></div>
+
+</div>
+
+{%endblock%}

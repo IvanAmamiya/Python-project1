@@ -1,0 +1,97 @@
+{%extends'base.html'%}
+{%block main%}
+<link rel = 'stylesheet' href = "{{url_for('static',filename = 'css/index.css')}}" >
+
+<div class="row" style = "margin-top: 20px;text-align:center">
+    <div class="col"style = "margin-top: 20px"></div>
+    <div class="col-8" style = "margin-top: 20px" >
+        <h1 >{{Blog.title}}</h1>
+        <hr>
+        <p class="Blog_detail" >
+            <div class = "Blog_author">作者：{{Blog.Author}}</div>
+            <div class = "Blog_creat_time">发表时间：{{Blog.Creat_Date}}</div>
+        </p>
+        <body class = "question-ul">
+            {{Blog.content}}
+        
+        </body>
+
+
+    </div>
+    <div class="col"></div>
+
+</div>
+<hr>
+
+<div class = "comment-group">
+<div class="col"></div>
+<div class="col-8"></div>
+<h4 style = "padding-left: 20;">评论({{Blog.reviews|length}})</h4>
+{%if user%}
+<form action = "{{url_for( 'Answer' ,id = Blog.id)}}" method = "POST">
+    <div class="form-group">
+      <textarea type="text" cols="10" rows = "5" class="form-control" id="Inputcontent" placeholder="内容" aria-describedby="UsernameHelp" name = content>
+      </textarea>
+      {%for message in get_flashed_messages()%}
+      <div class="text-danger">
+        {{message}}
+      </div>
+      {%endfor%}
+        <div style = "text-align: right;padding-top: 5;border-top:0;">
+            <button type="submit" class="btn btn-primary " >评论</button>
+        </div>
+    </div>
+
+</form>
+{%else%}
+<form action = "{{url_for( 'Review',id = Blog.id )}}" method = "POST">
+    <div class="form-group">
+        <input type="text" class="form-control" id="InputAuthorname" placeholder="作者" aria-describedby="UsernameHelp" name = Author>
+      <textarea type="text" cols="10" rows = "5" class="form-control" id="Inputcontent" placeholder="内容" aria-describedby="UsernameHelp" name = content>
+
+      </textarea>
+      {%for message in get_flashed_messages()%}
+      <div class="text-danger">
+        {{message}}
+      </div>
+      {%endfor%}
+        <div style = "text-align: right;padding-top: 5;border-top:0;">
+            <button type="submit" class="btn btn-primary " >评论</button>
+        </div>
+    </div>
+
+</form>
+{%endif%}
+
+{% for Review in Blog.reviews %}
+<hr>
+<ul class="question-ul" >
+    <li>
+        <div class="side-question">
+        </div>
+        <div class="question-main">
+            <p>{{Review.content}}</p>
+            {%if Review.type == "admin"%}
+            <p style = "font-size:10px;text-align:right" >
+                 <span>
+                    Blog主回复
+                </span>
+            </p>
+            {%endif%}
+            <p class="question-detail" style = "font-size:10px;text-align:right" >
+
+                <span class="question-author">{{Review.Author}}</span>
+
+                <span class="question-time">{{Review.Creat_Date}}</span>
+            </p>
+
+        </div>
+    </li>
+</ul>
+{% endfor %}
+</div>
+
+</div>
+
+
+{%endblock%}

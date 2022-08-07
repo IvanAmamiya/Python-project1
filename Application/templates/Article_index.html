@@ -1,0 +1,41 @@
+{%extends'base.html'%}
+{%block main%}
+<title>{{username}}的文章</title>
+
+<link rel = 'stylesheet' href = "{{url_for('static',filename = 'css/index.css')}}" >
+<a href="{{url_for("Article")}}" >
+    <div class="form-group" style = "margin-top: 20px;text-align:left"  >
+        <button class="btn btn-primary " style = "text-align:center;font-size:40px" >
+        发文
+    </button>
+</div>
+</a>
+<div class="row" >
+    <div class="col-8" >
+        {% for Article in Articles %}
+        <hr>
+        <ul class="question-ul" >
+            <li>
+                <div class="side-question">
+                </div>
+                <div class="question-main">
+                    <p class="question-title" >
+                        <a href="{{url_for("Blog_detail" , Blog_id = Article.id)}}" class="href"style = "font-size:20px">{{Article.title}}</a>
+                    </p>
+                    <p class="question-detail" style = "font-size:10px;text-align:right" >
+                        <span class="question-author">{{Article.Author}}</span>
+                        <span class="question-time">{{Article.Creat_Date}}</span>
+                    </p>
+
+                </div>
+            </li>
+        </ul>
+        {% endfor %}
+        
+    </div>
+    <hr>
+    <div class="col"></div>
+
+</div>
+
+{%endblock%}
