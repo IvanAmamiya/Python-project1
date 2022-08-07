@@ -113,7 +113,7 @@ def logout():
 @app.route("/Blog/<int:Blog_id>")
 def Blog_detail(Blog_id):
   Blog = BlogModel.query.filter_by(id = Blog_id).first()
-  Blog.reviews = ReviewModel.query.order_by(db.text("-id")).all()
+  Blog.reviews = ReviewModel.query.order_by(db.text("-id")).filter_by(id = Blog_id).all()
 
   return render_template("detail.html",Blog= Blog,useradmin = name)
 @app.route("/Review",methods = ["POST"])
