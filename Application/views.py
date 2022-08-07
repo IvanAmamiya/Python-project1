@@ -128,10 +128,10 @@ def Review():
     reviews = ReviewModel(Author = Author,content = content,Creat_Date = datetime.now().strftime("%Y-%m-%d  %H:%M:%S"),Blog_id = id,type = "guest")
     db.session.add(reviews)
     db.session.commit()
-    return render_template("detail.html",Blog_id = id,Blog = Blog,review = Reviews,useradmin = name)
+    return render_template("detail.html",Blog_id = id,Blog = Blog,review = reviews,useradmin = name)
   else:
     flash("格式错误……署名和内容格式错误")
-    return render_template("detail.html",Blog_id = id,Blog = Blog ,review = Reviews ,useradmin = name)
+    return render_template("detail.html",Blog_id = id,Blog = Blog ,review = reviews ,useradmin = name)
 @app.route("/Answer",methods = ["POST"])
 def Answer():
   id = request.args.get('id', '')

@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String
 import random
 from datetime import datetime
 from werkzeug.security import generate_password_hash
-HOSTNAME = '127.0.0.1'
+HOSTNAME = '0.0.0.0'
 PORT     = 3306
 DATABASE = '1'
 USERNAME = 'root'
