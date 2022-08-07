@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from  Application import app,session,request,redirect,flash
 from Application import current_app,render_template,url_for
 from Application import db,g
@@ -9,12 +8,23 @@ from .decorators import  Authorize_Confirmed
 from datetime import datetime
 from sqlalchemy import or_
 
-=======
-from  Application import app
-from Application import current_app,render_template
-from Application import db
->>>>>>> a3001e3c8545fe91b48482034dad71047a3961d6
 name = 'Rokossovskaya'
+
+@app.before_request
+def before_request():
+    user_id = session.get("user_id")
+    if (user_id):
+        try:
+            user = User.query.get(user_id)
+            setattr(g,"user",user)
+        except:
+            pass
+@app.context_processor
+def context_processor():
+    if(hasattr(g,"user")):
+        return {"user":g.user}
+    else:
+        return {}
 
 @app.route('/')
 @app.route('/index/')
@@ -49,7 +59,6 @@ def Article():
 def Shitsumonnhako():
  
   app.logger.info('Shitsumonnhako')
-<<<<<<< HEAD
   if(request.method == "GET"):
     return render_template('Shitsumonnhako.html',useradmin = name)
   else:
@@ -104,7 +113,7 @@ def logout():
 @app.route("/Blog/<int:Blog_id>")
 def Blog_detail(Blog_id):
   Blog = BlogModel.query.filter_by(id = Blog_id).first()
-  Blog.reviews = ReviewModel.query.order_by(db.text("-id")).filter_by(id = Blog_id).all()
+  Blog.reviews = ReviewModel.query.order_by(db.text("-id")).filter_by(Blog_id = Blog_id).all()
 
   return render_template("detail.html",Blog= Blog,useradmin = name)
 @app.route("/Review",methods = ["POST"])
@@ -151,20 +160,5 @@ def search():
 
 
 
-=======
-  return render_template('Shitsumonnhako.html',useradmin = name)
-@app.route('/ShortBlog/')
-def ShortBlog():
-  app.logger.info('ShortBlog')
-  return render_template('ShortBlog.html',useradmin = name)
-@app.route('/register/')
-def register():
-  app.logger.info('register')
-  return render_template('register.html',useradmin = name)
-@app.route('/login/')
-def login():
-  app.logger.info('login')
-  return render_template('login.html',useradmin = name)
->>>>>>> a3001e3c8545fe91b48482034dad71047a3961d6
 
 
