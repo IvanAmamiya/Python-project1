@@ -1,6 +1,5 @@
 from Application import app
-from flask_script import Manager
+from flask_scripe import Manager
 manager = Manager(app)
-
 if(__name__=='__main__'):
     manager.run()
