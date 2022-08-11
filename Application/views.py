@@ -131,7 +131,7 @@ def Review():
     return render_template("detail.html",Blog_id = id,Blog = Blog,review = reviews,useradmin = name)
   else:
     flash("格式错误……署名和内容格式错误")
-    return render_template("detail.html",Blog_id = id,Blog = Blog ,review = reviews ,useradmin = name)
+    return render_template("detail.html",Blog_id = id,Blog = Blog  ,useradmin = name)
 @app.route("/Answer",methods = ["POST"])
 def Answer():
   id = request.args.get('id', '')
