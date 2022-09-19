@@ -113,7 +113,7 @@ def logout():
 @app.route("/Blog/<int:Blog_id>")
 def Blog_detail(Blog_id):
   Blog = BlogModel.query.filter_by(id = Blog_id).first()
-  Blog.reviews = ReviewModel.query.order_by(db.text("-id")).all()
+  Blog.reviews = ReviewModel.query.order_by(db.text("-id")).filter_by(Blog_id = Blog_id).all()
 
   return render_template("detail.html",Blog= Blog,useradmin = name)
 @app.route("/Review",methods = ["POST"])
@@ -131,7 +131,7 @@ def Review():
     return render_template("detail.html",Blog_id = id,Blog = Blog,review = reviews,useradmin = name)
   else:
     flash("格式错误……署名和内容格式错误")
-    return render_template("detail.html",Blog_id = id,Blog = Blog ,review = reviews ,useradmin = name)
+    return render_template("detail.html",Blog_id = id,Blog = Blog  ,useradmin = name)
 @app.route("/Answer",methods = ["POST"])
 def Answer():
   id = request.args.get('id', '')
